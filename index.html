@@ -4,39 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WhatsApp</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#111b21;font-family:Arial,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-header{background:#202c33;padding:10px 15px;display:flex;justify-content:space-between;align-items:center}
-header h2{color:#fff;font-size:20px}
-header span{color:#aebac1;font-size:22px;margin-left:15px}
-.search{background:#202c33;padding:8px 12px}
-.search input{width:100%;background:#2a3942;border:none;padding:10px 15px;border-radius:8px;color:#fff;outline:none}
-.tabs{background:#202c33;display:flex;padding:0 10px}
-.tabs div{color:#8696a0;padding:10px 15px;font-size:14px;cursor:pointer}
-.tabs .active{color:#25d366;border-bottom:3px solid #25d366}
-.chats{flex:1;overflow-y:auto}
-.chat{display:flex;padding:12px;border-bottom:1px solid #222d34;cursor:pointer}
-.chat img{width:50px;height:50px;border-radius:50%;background:#333}
-.info{flex:1;margin-right:12px}
-.info h4{color:#e9edef;font-size:16px;display:flex;justify-content:space-between}
-.info h4 span{color:#8696a0;font-size:12px;font-weight:normal}
-.info p{color:#8696a0;font-size:13px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bottom{background:#202c33;display:flex;justify-content:space-around;padding:12px 0;position:sticky;bottom:0}
-.bottom div{color:#8696a0;text-align:center;font-size:12px}
-.bottom .active{color:#fff}
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+body{background:#0b141a;color:#e9edef;height:100vh;overflow:hidden}
+.app{max-width:480px;margin:0 auto;height:100vh;background:#111b21;display:flex;flex-direction:column;position:relative}
+.header{background:#202c33;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:21px}
+.header-icons{display:flex;gap:16px;color:#8696a0;font-size:18px}
+.search-box{margin:8px 12px;background:#202c33;border-radius:8px;padding:8px 12px;display:flex;gap:8px;align-items:center}
+.search-box input{flex:1;background:transparent;border:none;outline:none;color:#fff}
+.tabs{display:flex;gap:6px;padding:8px 12px;overflow:auto}
+.tab{padding:6px 12px;background:#182229;color:#8696a0;border-radius:18px;font-size:12px;white-space:nowrap;cursor:pointer}
+.tab.active{background:#25D366;color:#111b21;font-weight:700}
+.stealth-bar{background:linear-gradient(135deg,#0a332c,#1f6e5a);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.stealth-btn{background:#25D366;color:#111b21;border:none;padding:6px 12px;border-radius:20px;font-weight:700;cursor:pointer}
+.stealth-panel{display:none;background:#182229;padding:12px}
+.stealth-panel.show{display:block}
+.opt{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #2a3942;font-size:13px}
+.switch{width:44px;height:24px;background:#2a3942;border-radius:20px;position:relative;cursor:pointer}
+.switch.on{background:#25D366}
+.switch::after{content:'';position:absolute;top:2px;right:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}
+.switch.on::after{transform:translateX(-20px)}
+.chat-list{flex:1;overflow:auto}
+.chat-item{display:flex;gap:12px;padding:12px;border-bottom:1px solid #ffffff0d;cursor:pointer}
+.chat-item:hover{background:#202c33}
+.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.chat-info{flex:1;overflow:hidden}
+.chat-top{display:flex;justify-content:space-between}
+.chat-name{font-size:15px}
+.chat-time{font-size:11px;color:#8696a0}
+.chat-last{font-size:13px;color:#8696a0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.badge{background:#25D366;color:#111b21;font-size:11px;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.fab{position:absolute;bottom:75px;left:16px;width:56px;height:56px;background:#25D366;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#111b21;font-size:22px}
+.bottom-nav{background:#202c33;display:flex;justify-content:space-around;padding:8px 0 12px}
+.nav-item{display:flex;flex-direction:column;align-items:center;color:#8696a0;font-size:10px;gap:3px}
+.nav-item.active{color:#fff}
+.chat-view{display:none;position:absolute;inset:0;background:#0b141a;z-index:20;flex-direction:column}
+.chat-view.show{display:flex}
+.chat-hdr{background:#202c33;padding:8px 12px;display:flex;align-items:center;gap:10px}
+.chat-bg{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;background:#0b141a}
+.msg{max-width:75%;padding:7px 8px;border-radius:8px;margin:4px 0;font-size:14px}
+.msg.in{background:#202c33;align-self:flex-start;border-top-right-radius:0}
+.msg.out{background:#005c4b;align-self:flex-end;border-top-left-radius:0}
+.input-area{background:#202c33;padding:6px;display:flex;gap:6px;align-items:center}
+.input-area .inp{flex:1;background:#2a3942;border-radius:20px;padding:8px 12px;display:flex;gap:6px;align-items:center}
+.input-area input{flex:1;background:transparent;border:none;outline:none;color:#fff}
+.send{background:#25D366;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#111b21}
 </style>
 </head>
 <body>
-<header><h2>واتساب</h2><div><span>📷</span><span>🔍</span><span>⋮</span></div></header>
-<div class="search"><input placeholder="بحث..."></div>
-<div class="tabs"><div class="active">الكل</div><div>غير مقروءة</div><div>المجموعات</div></div>
-<div class="chats">
-<div class="chat"><img src="https://i.pravatar.cc/100?img=1"><div class="info"><h4>أحمد <span>11:20</span></h4><p>هلا والله، كيف الحال؟</p></div></div>
-<div class="chat"><img src="https://i.pravatar.cc/100?img=5"><div class="info"><h4>العائلة <span>10:15</span></h4><p>أمي: وينكم؟</p></div></div>
-<div class="chat"><img src="https://i.pravatar.cc/100?img=8"><div class="info"><h4>الشغل <span>أمس</span></h4><p>تم ارسال الملف</p></div></div>
-<div class="chat"><img src="https://i.pravatar.cc/100?img=12"><div class="info"><h4>محمد <span>أمس</span></h4><p>✅ تم</p></div></div>
+<div class="app">
+<div id="mainView" style="display:flex;flex-direction:column;height:100%">
+<div class="header"><h1>واتساب</h1><div class="header-icons"><i class="fa-solid fa-camera"></i><i class="fa-solid fa-magnifying-glass" onclick="document.getElementById('sBox').style.display='flex'"></i><i class="fa-solid fa-ellipsis-vertical" onclick="toggleS()"></i></div></div>
+<div class="search-box" id="sBox" style="display:none"><i class="fa-solid fa-arrow-right" onclick="this.parentElement.style.display='none'"></i><input id="q" placeholder="بحث..." oninput="filterC()"></div>
+<div class="tabs"><div class="tab active" onclick="setT(this,'all')">الكل</div><div class="tab" onclick="setT(this,'unread')">غير مقروءة</div><div class="tab" onclick="setT(this,'groups')">المجموعات</div><div class="tab">المفضلة</div></div>
+<div class="stealth-bar"><div><i class="fa-solid fa-user-secret" style="color:#25D366"></i> وضع التخفي مفعل</div><button class="stealth-btn" onclick="toggleS()">إعدادات التخفي</button></div>
+<div class="stealth-panel" id="sPanel">
+<div style="color:#25D366;font-weight:700;margin-bottom:8px">🛡️ ميزات التخفي الجديدة</div>
+<div class="opt"><span>🎭 إخفاء آخر ظهور</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>👁️ إخفاء الصحين الزرق</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>⌨️ إخفاء يكتب الآن...</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>🎙️ إخفاء تسجيل الصوت</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>📸 إخفاء مشاهدة الستوري</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>🔒 قفل المحادثات ببصمة</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>💨 رسائل تختفي تلقائيا</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+<div class="opt"><span>👻 الوضع الشبح الكامل</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
 </div>
-<div class="bottom"><div class="active">💬<br>الدردشات</div><div>🔄<br>التحديثات</div><div>👥<br>المجتمعات</div><div>📞<br>المكالمات</div></div>
+<div class="chat-list" id="cList"></div>
+<div class="fab"><i class="fa-solid fa-comment-dots"></i></div>
+<div class="bottom-nav"><div class="nav-item active"><i class="fa-solid fa-message"></i>الدردشات</div><div class="nav-item"><i class="fa-regular fa-circle-notch"></i>التحديثات</div><div class="nav-item"><i class="fa-solid fa-users"></i>المجتمعات</div><div class="nav-item"><i class="fa-solid fa-phone"></i>المكالمات</div></div>
+</div>
+<div class="chat-view" id="cView">
+<div class="chat-hdr"><i class="fa-solid fa-arrow-right" onclick="closeC()" style="font-size:20px"></i><img id="cvA" style="width:36px;height:36px;border-radius:50%"><div style="flex:1"><div id="cvN" style="font-weight:700"></div><div style="font-size:11px;color:#8696a0">متصل الآن - التخفي مفعل 👻</div></div><i class="fa-solid fa-video"></i><i class="fa-solid fa-phone" style="margin:0 10px"></i></div>
+<div class="chat-bg" id="cBg"></div>
+<div class="input-area"><div class="inp"><i class="fa-regular fa-face-smile"></i><input id="mInp" placeholder="اكتب رسالة"><i class="fa-solid fa-paperclip"></i><i class="fa-solid fa-camera"></i></div><div class="send" onclick="sendM()"><i class="fa-solid fa-paper-plane"></i></div></div>
+</div>
+</div>
+<script>
+const chats=[{n:"أحمد",a:"https://i.pravatar.cc/150?img=8",t:"11:20",m:"هلا والله، كيف الحال؟",u:2},{n:"العائلة 👨‍👩‍👧‍👦",a:"https://i.pravatar.cc/150?img=5",t:"10:15",m:"أمي: وينكم؟",u:5,g:true},{n:"الشغل 💼",a:"https://i.pravatar.cc/150?img=15",t:"أمس",m:"تم ارسال الملف",u:0},{n:"محمد",a:"https://i.pravatar.cc/150?img=12",t:"أمس",m:"✅ تم",u:0},{n:"ساره",a:"https://i.pravatar.cc/150?img=9",t:"أمس",m:"شفت الستوري؟ 😍",u:1},{n:"أبو خالد 🔒",a:"https://i.pravatar.cc/150?img=16",t:"أمس",m:"الموضوع سري 🤫",u:0},{n:"Best Friends",a:"https://i.pravatar.cc/150?img=32",t:"الاثنين",m:"هههههه 😂",u:3,g:true}];
+function render(list=chats){let h="";list.forEach(c=>{h+=`<div class="chat-item" onclick="openC('${c.n}','${c.a}')"><img class="avatar" src="${c.a}"><div class="chat-info"><div class="chat-top"><div class="chat-name">${c.n}</div><div class="chat-time">${c.t}</div></div><div style="display:flex;justify-content:space-between"><div class="chat-last">${c.m}</div>${c.u?`<div class="badge">${c.u}</div>`:`<i class="fa-solid fa-check-double" style="color:#53bdeb"></i>`}</div></div></div>`});document.getElementById('cList').innerHTML=h;}
+render();
+function filterC(){let q=document.getElementById('q').value;render(chats.filter(c=>c.n.includes(q)))}
+function setT(el,type){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');if(type=='unread')render(chats.filter(c=>c.u>0));else if(type=='groups')render(chats.filter(c=>c.g));else render();}
+function toggleS(){document.getElementById('sPanel').classList.toggle('show')}
+function openC(n,a){document.getElementById('mainView').style.display='none';document.getElementById('cView').classList.add('show');document.getElementById('cvN').innerText=n;document.getElementById('cvA').src=a;let bg=document.getElementById('cBg');bg.innerHTML='<div style="align-self:center;background:#182229;padding:6px 10px;border-radius:8px;font-size:11px;color:#8696a0;margin:10px 0">🔒 مشفر + وضع التخفي مفعل</div>';setTimeout(()=>{addM('in','هلا! هذا الإصدار الجديد فيه تخفي كامل 😎')},400)}
+function closeC(){document.getElementById('cView').classList.remove('show');document.getElementById('mainView').style.display='flex'}
+function addM(t,x){let bg=document.getElementById('cBg');let tm=new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});bg.innerHTML+=`<div class="msg ${t}">${x}<span style="font-size:10px;color:#ffffff99;float:left;margin-top:4px;margin-right:6px">${tm} ✓✓</span></div>`;bg.scrollTop=bg.scrollHeight}
+function sendM(){let i=document.getElementById('mInp');if(!i.value.trim())return;addM('out',i.value);i.value='';setTimeout(()=>addM('in','تم ✅ (ما راح يعرف انك قرأت)'),700)}
+document.getElementById('mInp').addEventListener('keydown',e=>{if(e.key==='Enter')sendM()})
+</script>
 </body>
 </html>
