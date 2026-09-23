@@ -2,22 +2,41 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WhatsApp</title>
 <style>
-body{margin:0;background:#111b21;color:#fff;height:100vh;display:flex;align-items:center;justify-content:center;font-family:Arial}
-.card{text-align:center}
-.logo{width:120px;height:120px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:60px;margin:0 auto 15px;font-weight:bold}
-p{color:#8696a0}
-.btn{color:#fff;background:#25D366;padding:12px 25px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:15px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111b21;font-family:Arial,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{background:#202c33;padding:10px 15px;display:flex;justify-content:space-between;align-items:center}
+header h2{color:#fff;font-size:20px}
+header span{color:#aebac1;font-size:22px;margin-left:15px}
+.search{background:#202c33;padding:8px 12px}
+.search input{width:100%;background:#2a3942;border:none;padding:10px 15px;border-radius:8px;color:#fff;outline:none}
+.tabs{background:#202c33;display:flex;padding:0 10px}
+.tabs div{color:#8696a0;padding:10px 15px;font-size:14px;cursor:pointer}
+.tabs .active{color:#25d366;border-bottom:3px solid #25d366}
+.chats{flex:1;overflow-y:auto}
+.chat{display:flex;padding:12px;border-bottom:1px solid #222d34;cursor:pointer}
+.chat img{width:50px;height:50px;border-radius:50%;background:#333}
+.info{flex:1;margin-right:12px}
+.info h4{color:#e9edef;font-size:16px;display:flex;justify-content:space-between}
+.info h4 span{color:#8696a0;font-size:12px;font-weight:normal}
+.info p{color:#8696a0;font-size:13px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bottom{background:#202c33;display:flex;justify-content:space-around;padding:12px 0;position:sticky;bottom:0}
+.bottom div{color:#8696a0;text-align:center;font-size:12px}
+.bottom .active{color:#fff}
 </style>
 </head>
 <body>
-<div class="card">
-<div class="logo">W</div>
-<h1>واتساب</h1>
-<p>موقعك شغال الآن ✅</p>
-<a class="btn" href="#">فتح واتساب</a>
+<header><h2>واتساب</h2><div><span>📷</span><span>🔍</span><span>⋮</span></div></header>
+<div class="search"><input placeholder="بحث..."></div>
+<div class="tabs"><div class="active">الكل</div><div>غير مقروءة</div><div>المجموعات</div></div>
+<div class="chats">
+<div class="chat"><img src="https://i.pravatar.cc/100?img=1"><div class="info"><h4>أحمد <span>11:20</span></h4><p>هلا والله، كيف الحال؟</p></div></div>
+<div class="chat"><img src="https://i.pravatar.cc/100?img=5"><div class="info"><h4>العائلة <span>10:15</span></h4><p>أمي: وينكم؟</p></div></div>
+<div class="chat"><img src="https://i.pravatar.cc/100?img=8"><div class="info"><h4>الشغل <span>أمس</span></h4><p>تم ارسال الملف</p></div></div>
+<div class="chat"><img src="https://i.pravatar.cc/100?img=12"><div class="info"><h4>محمد <span>أمس</span></h4><p>✅ تم</p></div></div>
 </div>
+<div class="bottom"><div class="active">💬<br>الدردشات</div><div>🔄<br>التحديثات</div><div>👥<br>المجتمعات</div><div>📞<br>المكالمات</div></div>
 </body>
 </html>
